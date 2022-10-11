@@ -2,7 +2,7 @@ import App from "../src/App";
 
 function Speakers({}){
     return (
-            <App pageName={''}/>
+            <App pageName={'Speakers'}/>
     )
 }
 
