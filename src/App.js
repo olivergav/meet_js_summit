@@ -1,11 +1,23 @@
-import Home from "../pages";
-import SignMeUp from "./SignMeUp";
+import Home from "../src/Home";
+import Speakers from "./Speakers";
+import {GlobalProvider} from "./GlobalState";
 
-function App({pageName}){
+function pageToShow(pageName) {
     if (pageName === "Home") return (<Home/>);
-    if (pageName === "Speakers") return (<SignMeUp/>);
+    if (pageName === "Speakers") return (<Speakers/>);
+
     return (
         <div>Not found</div>
+    )
+}
+
+function App({pageName}){
+    return (
+        <GlobalProvider>
+            <>
+                {pageToShow(pageName)}
+            </>
+        </GlobalProvider>
     )
 }
 

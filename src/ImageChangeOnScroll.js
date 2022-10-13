@@ -1,7 +1,7 @@
 import ImageToggleOnScroll from "../pages/ImageToggleOnScroll";
 import {useEffect, useRef, useState} from "react";
 
-function ImageChangeOnScroll({primaryImage, secondaryImage}) {
+function ImageChangeOnScroll({primaryImage, secondaryImage, alt}) {
     const [inView, setInView] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const imageRef = useRef(null);
@@ -30,7 +30,7 @@ function ImageChangeOnScroll({primaryImage, secondaryImage}) {
             <img src={isLoading ? 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' // 1x1gif
                         : inView ? secondaryImage : primaryImage}
                  ref={imageRef}
-                 alt=""/>
+                 alt={alt}/>
         </>
     )
 }
