@@ -1,6 +1,7 @@
 import Home from "../src/Home";
 import Speakers from "./Speakers";
 import {GlobalProvider} from "./GlobalState";
+import {createContext} from "react";
 
 function pageToShow(pageName) {
     if (pageName === "Home") return (<Home/>);
@@ -11,13 +12,23 @@ function pageToShow(pageName) {
     )
 }
 
-function App({pageName}){
+export const ConfigContext = createContext();
+
+const configValue = {
+    showSignMeUp: true,
+    showSpeakerSpeakingDays: true,
+};
+
+
+function App({pageName}) {
     return (
-        <GlobalProvider>
-            <>
-                {pageToShow(pageName)}
-            </>
-        </GlobalProvider>
+        <ConfigContext.Provider  value={configValue}>
+            <GlobalProvider>
+                <>
+                    {pageToShow(pageName)}
+                </>
+            </GlobalProvider>
+        </ConfigContext.Provider >
     )
 }
 
