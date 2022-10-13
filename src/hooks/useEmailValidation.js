@@ -15,11 +15,7 @@ function useEmailValidation(seconds) {
         return action;
     }
 
-    return {
-        setEmail,
-        email,
-        emailValid,
-    }
+    return {setEmail, email, emailValid}
 }
 
 export default useEmailValidation;
