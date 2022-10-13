@@ -3,11 +3,14 @@ import Header from "./Header";
 import Menu from "./Menu";
 import {GlobalContext} from "./GlobalState";
 import SpeakerDetail from "./SpeakerDetail";
+import {ConfigContext} from "./App";
 
-function Speakers(){
+function Speakers() {
     const {isLoading, speakerList, toggleSpeakerFavorite} = useContext(GlobalContext);
     const [speakersSaturday, setSpeakersSaturday] = useState(true);
     const [speakersSunday, setSpeakersSunday] = useState(true);
+    const {showSpeakerSpeakingDays} = useContext(ConfigContext);
+
 
     const heartFavoriteHandler = useCallback(function (speaker) {
         toggleSpeakerFavorite(speaker)
@@ -21,12 +24,12 @@ function Speakers(){
         setSpeakersSunday(!speakersSunday)
     }
 
-    const filteredSpeakerList =  useMemo(() => {
+    const filteredSpeakerList = useMemo(() => {
         return speakerList
             .filter(({sat, sun}) => (sat && speakersSaturday) || (sun && speakersSunday))
             .sort((a, b) => {
                 if (a.firstName < b.firstName) {
-                    return - 1;
+                    return -1;
                 }
 
                 if (a.firstName > b.firstName) {
@@ -41,10 +44,12 @@ function Speakers(){
 
     return (
         <>
-            <Header />
-            <Menu />
+            <Header/>
+            <Menu/>
 
             <div className='container'>
+
+                {!showSpeakerSpeakingDays ? null : (
                 <div className="btn-toolbar  margintopbottom5 checkbox-bigger">
                     <div className="hide">
                         <div className="form-check-inline">
@@ -71,16 +76,18 @@ function Speakers(){
                         </div>
                     </div>
                 </div>
+                )}
+
 
                 <div className="speakers">
                     {filteredSpeakerList
                         .map((speaker) => (
-                        <SpeakerDetail
-                            speaker={speaker}
-                            key={speaker.id}
-                            heartFavoriteHandler={heartFavoriteHandler}
-                        />
-                    ))}
+                            <SpeakerDetail
+                                speaker={speaker}
+                                key={speaker.id}
+                                heartFavoriteHandler={heartFavoriteHandler}
+                            />
+                        ))}
                 </div>
             </div>
         </>
